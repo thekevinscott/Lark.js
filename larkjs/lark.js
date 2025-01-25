@@ -2960,7 +2960,9 @@ class InteractiveParser {
   accepts() {
     let new_cursor;
     let accepts = new Set();
-    for (const t of this.choices()) {
+    const choices = this.choices();
+    for (const key in choices) {
+      const t = choices[key];
       if (isupper(t)) {
         // is terminal?
         new_cursor = copy(this);
@@ -3757,10 +3759,7 @@ class Lark extends Serialize {
 
   */
   parse_interactive(text = null, start = null) {
-    return this.parser.parse_interactive({
-      unknown_param_0: text,
-      start: start,
-    });
+    return this.parser.parse_interactive(text, start);
   }
 
   /**
